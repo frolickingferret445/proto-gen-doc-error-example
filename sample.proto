@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+package my.package;
+
+// This is a comment on a service.  It seems to work fine.
+//
+// You can even skip lines like this.
+//
+// or do fancy spacing like this:
+//
+//      item1:     Description 1 goes here
+//      item2:         Description 2 goes here
+//      item3:        Description 3 goes here
+//
+service MyService {
+
+
+    // However,
+    //
+    // if you try to do the same thing with a nested rpc,
+    //
+    // all of these random
+    //
+    // pipes are generated and not all of the fields show up
+    rpc GetFoo(GetFooRequest) returns (Foo) {
+    }
+
+    // Then, a later rpc with a normal comment doesn't get added into the table.
+    rpc GetBar(GetBarRequest) returns (Bar) {
+    }
+
+}
+
+
+// The same issue happens with messages.
+//
+// multi-line descriptions are allowed for the top-level message
+message Foo {
+
+    // but
+    //
+    // not
+    //
+    // for
+    //
+    // field
+    string foo = 1;
+
+    // This field is not added to the table now.  Lots of crazy pipes.
+    int32 foo_count = 2;
+}
+
+// Nothing to see here
+message Bar {
+    string bar = 1;
+}
+
+// Nothing to see here
+message GetFooRequest {
+}
+
+// Nothing to see here
+message GetBarRequest {
+}
